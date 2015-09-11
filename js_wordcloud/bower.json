@@ -1,0 +1,15 @@
+{
+  "name": "js_wordcloud",
+  "version": "1.0.0",
+  "authors": [
+    "chrisw"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
