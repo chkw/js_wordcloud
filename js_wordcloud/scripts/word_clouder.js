@@ -70,7 +70,7 @@ word_clouder = ( typeof word_clouder === "undefined") ? {} : word_clouder;
             }).style("font-family", "Impact").style("fill", function(d, i) {
                 return colorMapper(d.score);
             }).style("fill-opacity", 0).attr("text-anchor", "middle").attr("transform", function(d) {
-                var s = "translate(" + [d.x, d.y] + ")rotate(" + _.random(-180, 180) + ")";
+                var s = "translate(" + [0, 0] + ")rotate(" + _.random(-180, 180) + ")";
                 return s;
             }).text(function(d) {
                 return d.text;
@@ -79,13 +79,16 @@ word_clouder = ( typeof word_clouder === "undefined") ? {} : word_clouder;
             // events
             textElems.on("click", clickHandler);
             textElems.on("mouseover", function(d) {
-                d3.select(this).transition().duration(500).style("font-size", function(d) {
+                var wordElem = d3.select(this);
+                utils.pullElemToFront(wordElem.node());
+                wordElem.transition().duration(500).style("font-size", function(d) {
                     var size = scoreToSize(d.score) + 10;
                     return size + "px";
                 });
             });
             textElems.on("mouseout", function(d) {
-                d3.select(this).transition().duration(1500).style("font-size", function(d) {
+                var wordElem = d3.select(this);
+                wordElem.transition().duration(1500).style("font-size", function(d) {
                     var size = scoreToSize(d.score);
                     return size + "px";
                 });
