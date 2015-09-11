@@ -74,7 +74,22 @@ word_clouder = ( typeof word_clouder === "undefined") ? {} : word_clouder;
                 return s;
             }).text(function(d) {
                 return d.text;
-            }).on("click", clickHandler);
+            });
+
+            // events
+            textElems.on("click", clickHandler);
+            textElems.on("mouseover", function(d) {
+                d3.select(this).transition().duration(500).style("font-size", function(d) {
+                    var size = scoreToSize(d.score) + 10;
+                    return size + "px";
+                });
+            });
+            textElems.on("mouseout", function(d) {
+                d3.select(this).transition().duration(1500).style("font-size", function(d) {
+                    var size = scoreToSize(d.score);
+                    return size + "px";
+                });
+            });
 
             textElems.append("title").text(function(d, i) {
                 var s = "score: " + d.score.toPrecision(3);
