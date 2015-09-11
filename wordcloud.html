@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>word clouder</title>
+		<meta charset="utf-8">
+
+		<link rel="stylesheet" href="/js_wordcloud/css/index.css" type="text/css" />
+
+		<script type="text/javascript" src="/js_wordcloud/bower_components/d3/d3.js" charset="utf-8"></script>
+		<script type="text/javascript" src="/js_wordcloud/bower_components/d3-cloud/d3.layout.cloud.js" charset="utf-8"></script>
+		<script type="text/javascript" src="/js_wordcloud/bower_components/underscore/underscore.js" charset="utf-8"></script>
+
+		<script type="text/javascript" src="/js_wordcloud/scripts/utils.js" charset="utf-8"></script>
+
+		<script type="text/javascript" src="/js_wordcloud/scripts/word_clouder.js" charset="utf-8"></script>
+
+		<!-- <script type="text/javascript" src="/js_wordcloud/scripts/word_clouder_plugin.js" charset="utf-8"></script> -->
+	</head>
+	<body style='background-color:white'>
+		<div id="testDiv"></div>
+	</body>
+
+	<script>
+        var correlatorData = [{
+            "_id" : {
+                "_str" : "55db9f16829244fb843c06bc"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "TP53_tf_viper",
+            "version_2" : 5,
+            "score" : 0.873649243973168
+        }, {
+            "_id" : {
+                "_str" : "55db9f16829244fb843c06bd"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "YY1_tf_viper",
+            "version_2" : 5,
+            "score" : 0.849162215227929
+        }, {
+            "_id" : {
+                "_str" : "55db9f16829244fb843c06c0"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "E2F4_tf_viper",
+            "version_2" : 5,
+            "score" : 0.827367992724091
+        }, {
+            "_id" : {
+                "_str" : "55db9f16829244fb843c06c1"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "E2F1_tf_viper",
+            "version_2" : 5,
+            "score" : 0.826653826589164
+        }, {
+            "_id" : {
+                "_str" : "55db9f16829244fb843c06c2"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "ATF3_tf_viper",
+            "version_2" : 5,
+            "score" : 0.826045628397491
+        }, {
+            "_id" : {
+                "_str" : "55db9f16829244fb843c075b"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "smc-adeno-20k",
+            "version_2" : 5,
+            "score" : 0.657216461942131
+        }, {
+            "_id" : {
+                "_str" : "55db9f16829244fb843c07d0"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "smc20k",
+            "version_2" : 5,
+            "score" : 0.631793123667019
+        }, {
+            "_id" : {
+                "_str" : "55db9f16829244fb843c07d1"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "smc-iac-20k",
+            "version_2" : 5,
+            "score" : 0.631793123667019
+        }, {
+            "_id" : {
+                "_str" : "55dba7a3829244fb84b8ddfb"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "ZBTB33_tf_viper",
+            "version_2" : 5,
+            "score" : -0.739260878196753
+        }, {
+            "_id" : {
+                "_str" : "55dba7a3829244fb84b8ddfc"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "PRKAA2_kinase_viper",
+            "version_2" : 5,
+            "score" : -0.704077294639313
+        }, {
+            "_id" : {
+                "_str" : "55dba7a3829244fb84b8ddfe"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "ELF1_tf_viper",
+            "version_2" : 5,
+            "score" : -0.683366812795429
+        }, {
+            "_id" : {
+                "_str" : "55dba7a3829244fb84b8ddff"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "THAP1_tf_viper",
+            "version_2" : 5,
+            "score" : -0.680170632667812
+        }, {
+            "_id" : {
+                "_str" : "55dba7a3829244fb84b8de00"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "PBX3_tf_viper",
+            "version_2" : 5,
+            "score" : -0.64773203882705
+        }, {
+            "_id" : {
+                "_str" : "55dba7a3829244fb84b8de01"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "GABPA_tf_viper",
+            "version_2" : 5,
+            "score" : -0.618187865726368
+        }, {
+            "_id" : {
+                "_str" : "55dba7a3829244fb84b8de0a"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "JAK2_kinase_viper",
+            "version_2" : 5,
+            "score" : -0.583837124191497
+        }, {
+            "_id" : {
+                "_str" : "55dba7a3829244fb84b8de0c"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "LYN_kinase_viper",
+            "version_2" : 5,
+            "score" : -0.57517344389618
+        }, {
+            "_id" : {
+                "_str" : "55dba7a3829244fb84b8de3c"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "CHUK_kinase_viper",
+            "version_2" : 5,
+            "score" : -0.483353293721955
+        }, {
+            "_id" : {
+                "_str" : "55dba7a3829244fb84b8de4e"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "PRKAA1_kinase_viper",
+            "version_2" : 5,
+            "score" : -0.463128405464374
+        }, {
+            "_id" : {
+                "_str" : "55dba7a3829244fb84b8de78"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "iac-adeno-20k",
+            "version_2" : 5,
+            "score" : -0.43001467963024
+        }, {
+            "_id" : {
+                "_str" : "55dba7a3829244fb84b8de08"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "expression",
+            "name_2" : "LPP",
+            "version_2" : 5,
+            "score" : -0.597502725388752
+        }, {
+            "_id" : {
+                "_str" : "55dba7a3829244fb84b8de09"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "expression",
+            "name_2" : "RB1",
+            "version_2" : 5,
+            "score" : -0.596516632190122
+        }, {
+            "_id" : {
+                "_str" : "55dba7a3829244fb84b8de0d"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "expression",
+            "name_2" : "RHOQ",
+            "version_2" : 5,
+            "score" : -0.572354797588107
+        }, {
+            "_id" : {
+                "_str" : "55dba7a3829244fb84b8de0e"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "expression",
+            "name_2" : "ZNF708",
+            "version_2" : 5,
+            "score" : -0.569480341966137
+        }, {
+            "_id" : {
+                "_str" : "55dba7a3829244fb84b8de0f"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "expression",
+            "name_2" : "ZNF493",
+            "version_2" : 5,
+            "score" : -0.561035338337202
+        }, {
+            "_id" : {
+                "_str" : "55db9f16829244fb843c06e0"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "expression",
+            "name_2" : "PSMB6",
+            "version_2" : 5,
+            "score" : 0.714517641581596
+        }, {
+            "_id" : {
+                "_str" : "55db9f16829244fb843c06e2"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "expression",
+            "name_2" : "MRTO4",
+            "version_2" : 5,
+            "score" : 0.713498520270621
+        }, {
+            "_id" : {
+                "_str" : "55db9f16829244fb843c06e3"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "expression",
+            "name_2" : "SUPT16H",
+            "version_2" : 5,
+            "score" : 0.713285138722156
+        }, {
+            "_id" : {
+                "_str" : "55db9f16829244fb843c06e4"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "expression",
+            "name_2" : "CDC34",
+            "version_2" : 5,
+            "score" : 0.712540864938858
+        }, {
+            "_id" : {
+                "_str" : "55db9f16829244fb843c06e5"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "expression",
+            "name_2" : "CCT3",
+            "version_2" : 5,
+            "score" : 0.709317110303261
+        }, {
+            "_id" : {
+                "_str" : "55db9f16829244fb843c0754"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "CDK5_kinase_viper",
+            "version_2" : 5,
+            "score" : 0.658989281632376
+        }, {
+            "_id" : {
+                "_str" : "55db9f16829244fb843c077d"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "HIPK2_kinase_viper",
+            "version_2" : 5,
+            "score" : 0.647441404223295
+        }, {
+            "_id" : {
+                "_str" : "55db9f16829244fb843c0785"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "AURKA_kinase_viper",
+            "version_2" : 5,
+            "score" : 0.645640395871402
+        }, {
+            "_id" : {
+                "_str" : "55db9f16829244fb843c07a3"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "PRKCD_kinase_viper",
+            "version_2" : 5,
+            "score" : 0.640902906378282
+        }, {
+            "_id" : {
+                "_str" : "55db9f16829244fb843c07c7"
+            },
+            "datatype_1" : "signature",
+            "name_1" : "AURKB_kinase_viper",
+            "version_1" : 5,
+            "datatype_2" : "signature",
+            "name_2" : "AKT1_kinase_viper",
+            "version_2" : 5,
+            "score" : 0.633543210151857
+        }];
+
+        // var wordData = ["Hello", "world", "normally", "you", "want", "more", "words", "than", "this"];
+        var wordData = correlatorData.map(function(element) {
+            var newElement = {
+                "text" : element.name_2,
+                "score" : element.score
+            };
+            return newElement;
+        });
+        wordData = _.sortBy(wordData, function(data) {
+            return Math.abs(data.score) * -1;
+        });
+        var containerElem = document.getElementById("testDiv");
+        var width = 500;
+        var height = 500;
+        var clickHandler = function(d, i) {
+            alert("clicked text:" + d.text);
+        };
+        word_clouder.draw_word_cloud(wordData, containerElem, width, height, clickHandler);
+	</script>
+
+</html>
