@@ -21,7 +21,7 @@
 	</body>
 
 	<script>
-        var correlatorData = [{
+        var correlatorData_pearson = [{
             "_id" : {
                 "_str" : "55db9f16829244fb843c06bc"
             },
@@ -397,17 +397,374 @@
             "score" : 0.633543210151857
         }];
 
+        var correlatorData_anova = [{
+            "_id" : {
+                "_str" : "55dbc840829244fb842c5599"
+            },
+            "name_2" : "GAP43",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "expression",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : 1,
+            "score" : 4.467070783785381
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c5655"
+            },
+            "name_2" : "GPR120",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "expression",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : 1,
+            "score" : 4.46672615823502
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c5879"
+            },
+            "name_2" : "LCN15",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "expression",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : 1,
+            "score" : 4.4648403121915035
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c58ca"
+            },
+            "name_2" : "DSCAML1",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "expression",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : 1,
+            "score" : 4.603367094926241
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c5984"
+            },
+            "name_2" : "RAD21",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "expression",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : 1,
+            "score" : 1.3026350720046165
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c5bce"
+            },
+            "name_2" : "C10orf84",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "expression",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : 1,
+            "score" : 1.3025691281338019
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c5cec"
+            },
+            "name_2" : "UPB1",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "expression",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : 1,
+            "score" : 1.3025666119343975
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c5dc1"
+            },
+            "name_2" : "HIST1H4I",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "expression",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : 1,
+            "score" : 1.3033480403054756
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c5e80"
+            },
+            "name_2" : "LHFPL3",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "expression",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : 1,
+            "score" : 1.3032091471677252
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c5e9c"
+            },
+            "name_2" : "GNLY",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "expression",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : 1,
+            "score" : 4.5470694370186315
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c67d7"
+            },
+            "name_2" : "smc-adeno-20k",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "signature",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : "5",
+            "score" : 5.2446096034391285
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c67d9"
+            },
+            "name_2" : "ASCL1_tf_viper",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "signature",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : "5",
+            "score" : 5.182949933358952
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c67db"
+            },
+            "name_2" : "CDK5_kinase_viper",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "signature",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : "5",
+            "score" : 1.430229005344694
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c67dd"
+            },
+            "name_2" : "NR1I2_tf_viper",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "signature",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : "5",
+            "score" : 1.324971451171849
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c67e1"
+            },
+            "name_2" : "RXRA_tf_viper",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "signature",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : "5",
+            "score" : 3.035925617980628
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c67e3"
+            },
+            "name_2" : "SUZ12_tf_viper",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "signature",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : "5",
+            "score" : 2.7312642069335324
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c67e5"
+            },
+            "name_2" : "FOXM1_tf_viper",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "signature",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : "5",
+            "score" : 1.4779258770838082
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c67e6"
+            },
+            "name_2" : "TBX2_tf_viper",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "signature",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : "5",
+            "score" : 1.3205695096289025
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c67e7"
+            },
+            "name_2" : "smc20k",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "signature",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : "5",
+            "score" : 3.9102959761709863
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c67e8"
+            },
+            "name_2" : "smc-iac-50",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "signature",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : "5",
+            "score" : 7.046389587585484
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c67ea"
+            },
+            "name_2" : "PRKAA1_kinase_viper",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "signature",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : "5",
+            "score" : 1.4375051553415723
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c67f1"
+            },
+            "name_2" : "ESRRA_tf_viper",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "signature",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : "5",
+            "score" : 1.3594310059126038
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c67f5"
+            },
+            "name_2" : "smc50",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "signature",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : "5",
+            "score" : 7.046389587585484
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c67f6"
+            },
+            "name_2" : "smc-adeno-50",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "signature",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : "5",
+            "score" : 8.849290272125845
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c67f8"
+            },
+            "name_2" : "adeno20k",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "signature",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : "5",
+            "score" : 3.155367077898949
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c67fb"
+            },
+            "name_2" : "smc-iac-20k",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "signature",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : "5",
+            "score" : 3.9102959761709863
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c67fc"
+            },
+            "name_2" : "PLK3_kinase_viper",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "signature",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : "5",
+            "score" : 1.3040511973666336
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c67fe"
+            },
+            "name_2" : "WT1_tf_viper",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "signature",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : "5",
+            "score" : 3.031370696021822
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c6800"
+            },
+            "name_2" : "CDK7_kinase_viper",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "signature",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : "5",
+            "score" : 1.3285393620858907
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c6808"
+            },
+            "name_2" : "AURKA_kinase_viper",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "signature",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : "5",
+            "score" : 1.309616918326185
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c6809"
+            },
+            "name_2" : "POU3F2_tf_viper",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "signature",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : "5",
+            "score" : 4.071061901425736
+        }, {
+            "_id" : {
+                "_str" : "55dbc840829244fb842c680e"
+            },
+            "name_2" : "SREBF2_tf_viper",
+            "name_1" : "Small_Cell",
+            "datatype_2" : "signature",
+            "datatype_1" : "clinical",
+            "version_1" : 1,
+            "version_2" : "5",
+            "score" : 1.344277646522924
+        }];
+
         // var wordData = ["Hello", "world", "normally", "you", "want", "more", "words", "than", "this"];
-        var wordData = correlatorData.map(function(element) {
+        var wordData = correlatorData_pearson.map(function(element) {
+        // var wordData = correlatorData_anova.map(function(element) {
             var newElement = {
                 "text" : element.name_2,
-                "score" : element.score
+                "score" : element.score,
+                "data" : element
             };
             return newElement;
         });
         wordData = _.sortBy(wordData, function(data) {
             return Math.abs(data.score) * -1;
         });
+
         var containerElem = document.getElementById("testDiv");
         var width = 500;
         var height = 500;

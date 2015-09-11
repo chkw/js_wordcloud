@@ -22,12 +22,44 @@ word_clouder = ( typeof word_clouder === "undefined") ? {} : word_clouder;
      */
     wc.draw_word_cloud = function(wordData, containerElem, width, height, clickHandler) {
 
+        // if clinical pivot detected, normalize scores
+        var pivotType;
+        try {
+            pivotType = wordData[0]["data"]["datatype_1"];
+        } catch(e) {
+            console.log("error", e);
+        } finally {
+            if (!_.isUndefined(pivotType) && pivotType === "clinical") {
+                // normalize scores for clinical pivots
+                // (ANOVA correlator scores are not bounded on the right side)
+
+                // get min, max, range
+                console.log("need to normalize");
+                var scores = _.map(wordData, function(element) {
+                    var data = element["data"];
+                    var score = data["score"];
+                    return score;
+                });
+
+                var min_score = _.min(scores);
+                var max_score = _.max(scores);
+                var range = Math.abs(max_score - min_score);
+
+                // compute new scores
+                _.each(wordData, function(element) {
+                    var normalizedScore = (element["data"]["score"] - min_score) / range;
+                    element["score"] = normalizedScore;
+                });
+            }
+        }
+
         /**
          * convert a score to a size
          */
-        var scoreToSize = function(score) {
+        var scoreToSize = function(score, minimumSize) {
+            minimumSize = ( _.isUndefined(minimumSize)) ? 10 : minimumSize;
             var size = (Math.abs(score) * 30);
-            return size;
+            return _.max([minimumSize, size]);
         };
 
         /**
@@ -41,6 +73,7 @@ word_clouder = ( typeof word_clouder === "undefined") ? {} : word_clouder;
          */
         var cloudLayout = d3.layout.cloud().size([width, height]);
         cloudLayout.words(wordData);
+        cloudLayout.padding(3);
         cloudLayout.rotate(function(d, i) {
             return 0;
         });
@@ -106,7 +139,13 @@ word_clouder = ( typeof word_clouder === "undefined") ? {} : word_clouder;
 
             // tooltips
             textElems.append("title").text(function(d, i) {
-                var s = "score: " + d.score.toPrecision(3);
+                var score;
+                if (!_.isUndefined(d["data"])) {
+                    score = d["data"]["score"];
+                } else {
+                    score = d["score"];
+                }
+                var s = "score: " + score.toPrecision(3);
                 return s;
             });
 
