@@ -57,23 +57,33 @@ word_clouder = ( typeof word_clouder === "undefined") ? {} : word_clouder;
          */
         function draw(layoutWordsObj) {
             // console.log("layoutWordsObj", layoutWordsObj);
-            var svgElem = d3.select(containerElem).append("svg").attr("width", cloudLayout.size()[0]).attr("height", cloudLayout.size()[1]);
-            var groupElem = svgElem.append("g").attr("transform", "translate(" + cloudLayout.size()[0] / 2 + "," + cloudLayout.size()[1] / 2 + ")");
+            // center of the SVG canvas is (0,0).
+            var width = cloudLayout.size()[0];
+            var height = cloudLayout.size()[1];
+
+            var svgElem = d3.select(containerElem).append("svg").attr("width", width).attr("height", height);
+            var groupElem = svgElem.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
             groupElem.classed({
                 "unselectable" : true,
                 "pointer" : true
             });
 
             // entering words
-            var textElems = groupElem.selectAll("text").data(layoutWordsObj).enter().append("text").style("font-size", function(d) {
+            var textElems = groupElem.selectAll("text").data(layoutWordsObj).enter().append("text").text(function(d) {
+                return d.text;
+            });
+
+            // style
+            textElems.style("font-size", function(d) {
                 return 1;
             }).style("font-family", "Impact").style("fill", function(d, i) {
                 return colorMapper(d.score);
-            }).style("fill-opacity", 0).attr("text-anchor", "middle").attr("transform", function(d) {
+            }).style("fill-opacity", 0).style("cursor", "pointer");
+
+            // position
+            textElems.attr("text-anchor", "middle").attr("transform", function(d) {
                 var s = "translate(" + [0, 0] + ")rotate(" + _.random(-180, 180) + ")";
                 return s;
-            }).text(function(d) {
-                return d.text;
             });
 
             // events
@@ -94,6 +104,7 @@ word_clouder = ( typeof word_clouder === "undefined") ? {} : word_clouder;
                 });
             });
 
+            // tooltips
             textElems.append("title").text(function(d, i) {
                 var s = "score: " + d.score.toPrecision(3);
                 return s;
