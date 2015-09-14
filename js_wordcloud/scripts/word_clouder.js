@@ -18,7 +18,8 @@ word_clouder = ( typeof word_clouder === "undefined") ? {} : word_clouder;
 (function(wc) {"use strict";
 
     /**
-     *Draw a word cloud with one method call.
+     * Draw a word cloud with one method call.
+     * At the minimum, the data must include "text" and "score" attribute.
      */
     wc.draw_word_cloud = function(wordData, containerElem, width, height, clickHandler) {
 
@@ -32,26 +33,31 @@ word_clouder = ( typeof word_clouder === "undefined") ? {} : word_clouder;
             if (!_.isUndefined(pivotType) && pivotType === "clinical") {
                 // normalize scores for clinical pivots
                 // (ANOVA correlator scores are not bounded on the right side)
-
-                // get min, max, range
-                console.log("need to normalize");
-                var scores = _.map(wordData, function(element) {
-                    var data = element["data"];
-                    var score = data["score"];
-                    return score;
-                });
-
-                var min_score = _.min(scores);
-                var max_score = _.max(scores);
-                var range = Math.abs(max_score - min_score);
-
-                // compute new scores
-                _.each(wordData, function(element) {
-                    var normalizedScore = (element["data"]["score"] - min_score) / range;
-                    element["score"] = normalizedScore;
-                });
+                normalizeScores(wordData);
             }
         }
+
+        /**
+         * Normalize to all-positive scores.
+         */
+        var normalizeScores = function(wordData) {
+            // get min, max, range
+            var scores = _.map(wordData, function(element) {
+                var data = element["data"];
+                var score = data["score"];
+                return score;
+            });
+
+            var min_score = _.min(scores);
+            var max_score = _.max(scores);
+            var range = Math.abs(max_score - min_score);
+
+            // compute new scores
+            _.each(wordData, function(element) {
+                var normalizedScore = (element["data"]["score"] - min_score) / range;
+                element["score"] = normalizedScore;
+            });
+        };
 
         /**
          * convert a score to a size
@@ -93,6 +99,9 @@ word_clouder = ( typeof word_clouder === "undefined") ? {} : word_clouder;
             // center of the SVG canvas is (0,0).
             var width = cloudLayout.size()[0];
             var height = cloudLayout.size()[1];
+
+            // empty out the container element
+            utils.removeChildElems(containerElem);
 
             var svgElem = d3.select(containerElem).append("svg").attr("width", width).attr("height", height);
             var groupElem = svgElem.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
