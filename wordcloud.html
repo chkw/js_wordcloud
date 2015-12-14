@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>word clouder</title>
-		<meta charset="utf-8">
+    <head>
+        <title>word clouder</title>
+        <meta charset="utf-8">
 
-		<link rel="stylesheet" href="/js_wordcloud/css/index.css" type="text/css" />
+        <link rel="stylesheet" href="/js_wordcloud/css/index.css" type="text/css" />
 
-		<script type="text/javascript" src="/js_wordcloud/bower_components/d3/d3.js" charset="utf-8"></script>
-		<script type="text/javascript" src="/js_wordcloud/bower_components/d3-cloud/d3.layout.cloud.js" charset="utf-8"></script>
-		<script type="text/javascript" src="/js_wordcloud/bower_components/underscore/underscore.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/js_wordcloud/bower_components/d3/d3.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/js_wordcloud/bower_components/d3-cloud/d3.layout.cloud.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/js_wordcloud/bower_components/underscore/underscore.js" charset="utf-8"></script>
 
-		<script type="text/javascript" src="/js_wordcloud/scripts/utils.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/js_wordcloud/scripts/utils.js" charset="utf-8"></script>
 
-		<script type="text/javascript" src="/js_wordcloud/scripts/word_clouder.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/js_wordcloud/scripts/word_clouder.js" charset="utf-8"></script>
 
-		<!-- <script type="text/javascript" src="/js_wordcloud/scripts/word_clouder_plugin.js" charset="utf-8"></script> -->
-	</head>
-	<body style='background-color:white'>
-		<div id="testDiv"></div>
-	</body>
+        <!-- <script type="text/javascript" src="/js_wordcloud/scripts/word_clouder_plugin.js" charset="utf-8"></script> -->
+    </head>
+    <body style='background-color:white'>
+        <div id="testDiv">
+            Word Cloud goes in this space.
+        </div>
+    </body>
 
-	<script>
+    <script>
         var correlatorData_pearson = [{
             "_id" : {
                 "_str" : "55db9f16829244fb843c06bc"
@@ -754,8 +756,10 @@
         // var wordData = ["Hello", "world", "normally", "you", "want", "more", "words", "than", "this"];
         var wordData = correlatorData_pearson.map(function(element) {
         // var wordData = correlatorData_anova.map(function(element) {
+            var name = element.name_2;
+            name = name.replace(/_kinase_viper$/i, "").replace(/_tf_viper$/i, "");
             var newElement = {
-                "text" : element.name_2,
+                "text" : name,
                 "score" : element.score,
                 "data" : element
             };
@@ -772,6 +776,6 @@
             alert("clicked text:" + d.text);
         };
         word_clouder.draw_word_cloud(wordData, containerElem, width, height, clickHandler);
-	</script>
+    </script>
 
 </html>

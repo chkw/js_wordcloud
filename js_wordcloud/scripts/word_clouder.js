@@ -23,20 +23,6 @@ word_clouder = ( typeof word_clouder === "undefined") ? {} : word_clouder;
      */
     wc.draw_word_cloud = function(wordData, containerElem, width, height, clickHandler) {
 
-        // if clinical pivot detected, normalize scores
-        var pivotType;
-        try {
-            pivotType = wordData[0]["data"]["datatype_1"];
-        } catch(e) {
-            console.log("error", e);
-        } finally {
-            if (!_.isUndefined(pivotType) && pivotType === "clinical") {
-                // normalize scores for clinical pivots
-                // (ANOVA correlator scores are not bounded on the right side)
-                normalizeScores(wordData);
-            }
-        }
-
         /**
          * Normalize to all-positive scores.
          */
@@ -59,6 +45,20 @@ word_clouder = ( typeof word_clouder === "undefined") ? {} : word_clouder;
             });
         };
 
+        // if clinical pivot detected, normalize scores
+        var pivotType;
+        try {
+            pivotType = wordData[0]["data"]["datatype_1"];
+        } catch(e) {
+            console.log("error", e);
+        } finally {
+            if (!_.isUndefined(pivotType) && pivotType === "clinical") {
+                // normalize scores for clinical pivots
+                // (ANOVA correlator scores are not bounded on the right side)
+                normalizeScores(wordData);
+            }
+        }
+
         /**
          * convert a score to a size
          */
@@ -68,11 +68,9 @@ word_clouder = ( typeof word_clouder === "undefined") ? {} : word_clouder;
             return _.max([minimumSize, size]);
         };
 
-        /**
-         * color mapper
-         */
-        // var fill = d3.scale.category20();
-        var colorMapper = utils.centeredRgbaColorMapper(false, 0, -1, 1);
+        // opacity mapper
+        var opacityMapper = d3.scale.linear();
+        opacityMapper.domain([-1, 0, 1]).range([1, 0, 1]);
 
         /**
          * word cloud layout engine
@@ -119,7 +117,11 @@ word_clouder = ( typeof word_clouder === "undefined") ? {} : word_clouder;
             textElems.style("font-size", function(d) {
                 return 1;
             }).style("font-family", "Impact").style("fill", function(d, i) {
-                return colorMapper(d.score);
+                if (d.score > 0) {
+                    return "red";
+                } else {
+                    return "blue";
+                }
             }).style("fill-opacity", 0).style("cursor", "pointer");
 
             // position
@@ -129,7 +131,34 @@ word_clouder = ( typeof word_clouder === "undefined") ? {} : word_clouder;
             });
 
             // events
-            textElems.on("click", clickHandler);
+            // textElems.on("click", clickHandler);
+            textElems.on("click", function(d) {
+                var clickedData = d;
+                textElems.transition().duration(1500).style("font-size", function(d) {
+                    if (clickedData !== d) {
+                        var size = 10;
+                        return size + "px";
+                    } else {
+                        return "80px";
+                    }
+                }).attr("transform", function(d) {
+                    if (clickedData === d) {
+                        var s = "translate(" + [0, 0] + ")";
+                        return s;
+                    } else {
+                        var s = "translate(" + [d.x, d.y] + ")";
+                        return s;
+                    }
+                }).style("fill-opacity", function(d) {
+                    if (clickedData !== d) {
+                        return 0;
+                    } else {
+                        return 1;
+                    }
+                });
+                console.log("clicked", d.text);
+            });
+
             textElems.on("mouseover", function(d) {
                 var wordElem = d3.select(this);
                 utils.pullElemToFront(wordElem.node());
@@ -138,6 +167,7 @@ word_clouder = ( typeof word_clouder === "undefined") ? {} : word_clouder;
                     return size + "px";
                 });
             });
+
             textElems.on("mouseout", function(d) {
                 var wordElem = d3.select(this);
                 wordElem.transition().duration(1500).style("font-size", function(d) {
@@ -165,7 +195,10 @@ word_clouder = ( typeof word_clouder === "undefined") ? {} : word_clouder;
             }).attr("transform", function(d) {
                 var s = "translate(" + [d.x, d.y] + ")rotate(" + 0 + ")";
                 return s;
-            }).style("fill-opacity", 1);
+            }).style("fill-opacity", function(d) {
+                var value = opacityMapper(d.score);
+                return value;
+            });
         };
     };
 
