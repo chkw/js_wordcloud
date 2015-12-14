@@ -134,7 +134,7 @@ word_clouder = ( typeof word_clouder === "undefined") ? {} : word_clouder;
             // textElems.on("click", clickHandler);
             textElems.on("click", function(d) {
                 var clickedData = d;
-                textElems.transition().duration(1500).style("font-size", function(d) {
+                textElems.transition().duration(500).style("font-size", function(d) {
                     if (clickedData !== d) {
                         var size = 10;
                         return size + "px";
@@ -151,7 +151,7 @@ word_clouder = ( typeof word_clouder === "undefined") ? {} : word_clouder;
                     }
                 }).style("fill-opacity", function(d) {
                     if (clickedData !== d) {
-                        return 0;
+                        return 0.1;
                     } else {
                         return 1;
                     }
